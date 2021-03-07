@@ -42,8 +42,21 @@ public class DatabaseUserRepository implements UserRepository {
     }
 
     @Override
-    public boolean save(User user) {
-        return false;
+    public boolean save(User user) throws RuntimeException {
+        try {
+            final String insertSql = "INSERT INTO users (name,password,email,phoneNumber) VALUES" +
+                    " (?,?,?,?)";
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getPhoneNumber());
+            return preparedStatement.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("保存失败");
+        }
     }
 
     @Override

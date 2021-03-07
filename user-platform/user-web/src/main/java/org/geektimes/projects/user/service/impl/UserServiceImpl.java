@@ -4,6 +4,8 @@ import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.repository.UserRepository;
 import org.geektimes.projects.user.service.UserService;
 
+import java.sql.SQLException;
+
 /**
  * 用户
  *
@@ -20,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean register(User user) {
+    public boolean register(User user) throws SQLException {
         return userRepository.save(user);
     }
 
