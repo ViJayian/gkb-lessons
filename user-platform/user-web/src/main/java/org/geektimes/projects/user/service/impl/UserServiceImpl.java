@@ -1,16 +1,13 @@
 package org.geektimes.projects.user.service.impl;
 
 import org.geektimes.projects.user.domain.User;
-import org.geektimes.projects.user.repository.UserRepository;
 import org.geektimes.projects.user.service.UserService;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
-import javax.validation.Path;
 import javax.validation.Validator;
 import java.sql.SQLException;
 import java.util.Arrays;
