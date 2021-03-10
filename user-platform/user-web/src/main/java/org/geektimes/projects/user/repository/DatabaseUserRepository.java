@@ -2,13 +2,15 @@ package org.geektimes.projects.user.repository;
 
 import org.geektimes.function.ThrowableFunction;
 import org.geektimes.projects.user.domain.User;
-import org.geektimes.projects.user.sql.DBConnectionManager;
+import org.geektimes.projects.user.sql.JNDIManager;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.logging.Level;
@@ -31,23 +33,35 @@ public class DatabaseUserRepository implements UserRepository {
 
     public static final String QUERY_ALL_USERS_DML_SQL = "SELECT id,name,password,email,phoneNumber FROM users";
 
-    private final DBConnectionManager dbConnectionManager;
-
-    public DatabaseUserRepository(DBConnectionManager dbConnectionManager) {
-        this.dbConnectionManager = dbConnectionManager;
-    }
-
-    private Connection getConnection() {
-        return dbConnectionManager.getConnection();
-    }
-
     @Override
     public boolean save(User user) throws RuntimeException {
         try {
             final String insertSql = "INSERT INTO users (name,password,email,phoneNumber) VALUES" +
                     " (?,?,?,?)";
-            Connection connection = getConnection();
+            JNDIManager jndiManager = new JNDIManager();
+            Connection connection = jndiManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(insertSql);
+            //todo 反射重构复制，模拟orm 需要映射insert和遍历的顺序问题
+            /*BeanInfo beanInfo = Introspector.getBeanInfo(User.class, Object.class);
+            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            for (int i = 0; i < propertyDescriptors.length; i++) {
+                PropertyDescriptor propertyDescriptor = propertyDescriptors[i];
+                Class<?> propertyType = propertyDescriptor.getPropertyType();
+                Class type = wrapperToPrimitive(propertyType);
+                if (type == null) {
+                    type = propertyType;
+                }
+                // 反射获取User的属性
+                Method readMethod = propertyDescriptor.getReadMethod();
+                Object value = readMethod.invoke(user);
+
+                if (Objects.nonNull(value)) {
+                    // 反射获取preparedStatement的setter方法
+                    String methodName = preparedStatementMethodMappings.get(propertyType);
+                    Method preparedStatementSetterMethod = PreparedStatement.class.getMethod(methodName, int.class, type);
+                    preparedStatementSetterMethod.invoke(preparedStatement, i + 1, value);
+                }
+            }*/
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getEmail());
@@ -122,7 +136,8 @@ public class DatabaseUserRepository implements UserRepository {
      */
     protected <T> T executeQuery(String sql, ThrowableFunction<ResultSet, T> function,
                                  Consumer<Throwable> exceptionHandler, Object... args) {
-        Connection connection = getConnection();
+        JNDIManager jndiManager = new JNDIManager();
+        Connection connection = jndiManager.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             for (int i = 0; i < args.length; i++) {

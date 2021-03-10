@@ -1,3 +1,5 @@
+[TOC]
+
 # gkb-java
 
 # 1.环境
@@ -21,6 +23,22 @@ J2EE Core Patterns
 ## 3.数据库
 
 JDBC
+
+### 1.Derby数据库使用
+
+- 首次创建derby数据库
+
+```
+connect 'jdbc:derby:/db/user-platform;create=true';
+```
+
+- 连接derby数据库
+
+```
+PS D:\> ij
+ij 版本 10.13
+ij> connect 'jdbc:derby:/db/user-platform;';
+```
 
 # 2.Servlet
 
@@ -122,4 +140,53 @@ todolist
   - Response
 
   
+
+# 3.JNDI
+
+Java Naming Directory Interface
+
+java命名和目录接口
+
+- JNDI获取数据源
+- JNDI注入对象
+
+
+
+# 4.jpa
+
+### 1.Java Persistence Api (JPA) 规范
+
+1. 实体使用@Entity注解
+2. 必须包含默认构造器（需要 class.newInstance），public或者protected
+3. 实体类禁止是final
+   - 延迟加载是通过字节码提升做的，Session获取到的Entity Object类型是一个字节码提升的类，原始的类型是它的父类，因此这个类不能是final的。
+4. 不能是枚举或者接口
+
+
+
+# 作业
+
+1. 第一周
+
+- [x] 通过自研 Web MVC 框架实现（可以自己实现）一个用户注册，forward 到一个成功的页面（JSP 用法）/register
+
+- [x] 通过 Controller -> Service -> Repository 实现（数据库实现）
+
+- [x] （非必须）JNDI 的方式获取数据库源（DataSource），在获取 Connection
+
+2. 第二周
+
+- [x] 通过课堂上的简易版依赖注入和依赖查找，实现用户注册功能
+
+- [x] 通过 UserService 实现用户注册注册用户需要校验
+
+- [x] Id：必须大于 0 的整数
+
+- [x] 密码：6-32 位 电话号码: 采用中国大陆方式（11 位校验）
+
+
+
+
+
+
 
