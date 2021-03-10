@@ -103,11 +103,6 @@ public class ComponentContext {
             try {
                 // 注入目标对象
                 field.set(component, injectedObject);
-                // UserController注入Service
-                if ("bean/UserService".equals(resourceName)) {
-                    System.out.println("controller 中注入service");
-                    System.out.println(component);
-                }
             } catch (IllegalAccessException e) {
             }
         });
