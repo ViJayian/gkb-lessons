@@ -219,7 +219,7 @@ java命名和目录接口
 
 - 整合 https://jolokia.org/
 
-- [ ] 实现一个自定义 JMX MBean，通过 Jolokia 做Servlet 代理
+- [x] 实现一个自定义 JMX MBean，通过 Jolokia 做Servlet 代理
 
 - 继续完成 Microprofile config API 中的实现扩展
 
