@@ -34,4 +34,12 @@
 	<Resource name="bean/UserController" auth="Container"
 			  type="org.geektimes.projects.user.web.controller.UserController"
 			  factory="org.apache.naming.factory.BeanFactory" />
+
+	<Resource name="bean/JavaConfig" auth="Container"
+			  type="org.geektimes.configuration.microprofile.config.JavaConfig"
+			  factory="org.apache.naming.factory.BeanFactory" />
+
+	<!-- Tomcat JNDI 配置 -->
+	<Environment name="maxValue" value="12"
+				 type="java.lang.Integer" override="false"/>
 </Context>

@@ -154,13 +154,47 @@ java命名和目录接口
 
 # 4.jpa
 
-### 1.Java Persistence Api (JPA) 规范
+## 1.Java Persistence Api (JPA) 规范
 
 1. 实体使用@Entity注解
 2. 必须包含默认构造器（需要 class.newInstance），public或者protected
 3. 实体类禁止是final
    - 延迟加载是通过字节码提升做的，Session获取到的Entity Object类型是一个字节码提升的类，原始的类型是它的父类，因此这个类不能是final的。
 4. 不能是枚举或者接口
+
+
+
+# 5.配置管理和Java Logging
+
+## 1.整合MicroProfile Config
+
+- Maven坐标
+
+```
+<!-- MicroProfile -->
+<dependency>
+<groupId>org.eclipse.microprofile.config</groupId>
+<artifactId>microprofile-config-api</artifactId>
+<version>${microprofile-config-api.version}</version>
+</dependency>
+```
+
+## 2.引入项目
+
+### 1.配置统一门面**org.eclipse.microprofile.config.Config**
+
+- 作用： 通过ServiceLoader加载ConfigSource
+- Config比较ConfigSource，增加了类型转换
+
+### 2.配置来源org.eclipse.microprofile.config.spi.ConfigSource
+
+### 3.配置**org.eclipse.microprofile.config.spi.ConfigProviderResolver**
+
+## 4.Java Logging
+
+打印日志，Filter，LogRecord,判断级别，国际化文案
+
+# 6.监控管理
 
 
 
@@ -177,12 +211,21 @@ java命名和目录接口
 2. 第二周
 
 - [x] 通过课堂上的简易版依赖注入和依赖查找，实现用户注册功能
-
 - [x] 通过 UserService 实现用户注册注册用户需要校验
-
 - [x] Id：必须大于 0 的整数
-
 - [x] 密码：6-32 位 电话号码: 采用中国大陆方式（11 位校验）
+
+3. 第三周
+
+- 整合 https://jolokia.org/
+
+- [ ] 实现一个自定义 JMX MBean，通过 Jolokia 做Servlet 代理
+
+- 继续完成 Microprofile config API 中的实现扩展
+
+- [x] org.eclipse.microprofile.config.spi.ConfigSource实现，包括 OS 环境变量，以及本地配置文件
+- [x] 扩展 org.eclipse.microprofile.config.spi.Converter实现，提供 String 类型到简单类型
+- [x] 通过 org.eclipse.microprofile.config.Config 读取当前应用名称,应用名称 property name = "application.name"
 
 
 

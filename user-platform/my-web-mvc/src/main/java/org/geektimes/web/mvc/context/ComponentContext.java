@@ -150,7 +150,7 @@ public class ComponentContext {
      * @param name
      * @return
      */
-    private <C> C lookupComponent(String name) {
+    public  <C> C lookupComponent(String name) {
         // todo
         try {
             return (C) this.context.lookup(name);

@@ -44,6 +44,11 @@
             <artifactId>commons-validator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+        </dependency>
+
         <!-- Hibernate ORM Core -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -62,6 +67,17 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.1.0.Final</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.microprofile.config</groupId>
+            <artifactId>microprofile-config-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
+        </dependency>
+
         <!--<dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
