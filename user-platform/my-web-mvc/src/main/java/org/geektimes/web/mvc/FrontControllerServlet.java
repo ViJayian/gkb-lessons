@@ -1,7 +1,7 @@
 package org.geektimes.web.mvc;
 
 import org.apache.commons.lang.StringUtils;
-import org.geektimes.web.mvc.context.ComponentContext;
+import org.geektimes.web.context.ComponentContext;
 import org.geektimes.web.mvc.controller.Controller;
 import org.geektimes.web.mvc.controller.PageController;
 import org.geektimes.web.mvc.controller.RestController;
@@ -54,7 +54,7 @@ public class FrontControllerServlet extends HttpServlet {
         //从ComponentContext容器中获取controller,替换ServiceLoader加载的类
         Iterator<Map.Entry<String, Controller>> controllers = controllersMapping.entrySet().iterator();
         ComponentContext componentContext = ComponentContext.getInstance();
-        List<Controller> controllerBeans = componentContext.getAllControllerBeans();
+        List<Controller> controllerBeans = componentContext.getAllControllerBeans(Controller.class);
         while (controllers.hasNext()) {
             Map.Entry<String, Controller> next = controllers.next();
             String path = next.getKey();

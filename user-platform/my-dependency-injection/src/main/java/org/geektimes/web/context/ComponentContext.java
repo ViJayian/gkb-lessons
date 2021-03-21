@@ -1,6 +1,4 @@
-package org.geektimes.web.mvc.context;
-
-import org.geektimes.web.mvc.controller.Controller;
+package org.geektimes.web.context;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -9,7 +7,6 @@ import javax.naming.*;
 import javax.servlet.ServletContext;
 import java.lang.reflect.Modifier;
 import java.util.*;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -55,7 +52,7 @@ public class ComponentContext {
         this.classLoader = servletContext.getClassLoader();
         // 初始化JNDI环境实例
         initJDNIEnvContext();
-        // 加载 context.xml中配置的对象到内存中
+        // 加载 org.geektimes.web.context.xml中配置的对象到内存中
         instantiateComponents();
         // 初始化组件
         initializeComponents();
@@ -150,7 +147,7 @@ public class ComponentContext {
      * @param name
      * @return
      */
-    public  <C> C lookupComponent(String name) {
+    public <C> C lookupComponent(String name) {
         // todo
         try {
             return (C) this.context.lookup(name);
@@ -172,17 +169,17 @@ public class ComponentContext {
     }
 
     /**
-     * 获取所有controllerBeans
+     * 获取所有指定Class类型的Bean
      *
      * @return
      */
-    public List<Controller> getAllControllerBeans() {
-        List<Controller> list = new ArrayList<>();
+    public <T> List<T> getAllControllerBeans(Class<T> classt) {
+        List<T> list = new ArrayList<>();
         Collection<Object> values = this.componentsMap.values();
         for (Object value : values) {
-            if (value instanceof Controller) {
-                Controller controller = (Controller) value;
-                list.add(controller);
+            if (value.getClass() == classt) {
+                T t = (T) value;
+                list.add(t);
             }
         }
         return list;

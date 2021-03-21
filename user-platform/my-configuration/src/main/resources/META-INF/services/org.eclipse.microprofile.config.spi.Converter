@@ -1,4 +1,5 @@
 org.geektimes.configuration.microprofile.config.converter.ByteConverter
+org.geektimes.configuration.microprofile.config.converter.ByteConverter
 org.geektimes.configuration.microprofile.config.converter.ShortConverter
 org.geektimes.configuration.microprofile.config.converter.IntegerConverter
 org.geektimes.configuration.microprofile.config.converter.LongConverter

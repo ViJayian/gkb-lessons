@@ -1,10 +1,9 @@
 package org.geektimes.test;
 
 import org.eclipse.microprofile.config.Config;
-import org.geektimes.configuration.microprofile.config.JavaConfig;
 import org.geektimes.jmx.JMXDemo;
 import org.geektimes.projects.user.domain.User;
-import org.geektimes.web.mvc.context.ComponentContext;
+import org.geektimes.web.context.ComponentContext;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
@@ -30,7 +29,7 @@ public class TestListener implements ServletContextListener {
         testPropertyFromServletContext(servletContext);
         testJNDIPropertyValue(servletContext);
         // test MicroProfile init Properties
-        testMicroProfileProperties("application.name");
+//        testMicroProfileProperties("application.name");
 
         //test jolokia mbean
         //http://localhost:8081/jolokia/read/org.geektimes.jmx:type=User
@@ -73,7 +72,7 @@ public class TestListener implements ServletContextListener {
     }
 
     /**
-     * 测试获取web.xml context-param
+     * 测试获取web.xml org.geektimes.web.context-param
      *
      * @param servletContext
      */

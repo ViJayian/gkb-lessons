@@ -48,8 +48,8 @@ public class UserController implements PageController {
         user.setPassword(password);
         user.setId(100L);
         try {
-//            ComponentContext context = ComponentContext.getInstance();
-//            UserService userService = context.getBean("bean/UserService");
+//            ComponentContext org.geektimes.web.context = ComponentContext.getInstance();
+//            UserService userService = org.geektimes.web.context.getBean("bean/UserService");
             //userService是注入到 bean/UserController里面的，
             // 因此，该Controller必须是容器中的Controller，替换FrontControllerServlet中加载的
             this.userService.register(user);

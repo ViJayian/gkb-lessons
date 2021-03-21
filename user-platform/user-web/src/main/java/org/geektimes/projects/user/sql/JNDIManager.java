@@ -1,6 +1,6 @@
 package org.geektimes.projects.user.sql;
 
-import org.geektimes.web.mvc.context.ComponentContext;
+import org.geektimes.web.context.ComponentContext;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -41,9 +41,9 @@ public class JNDIManager {
     /*public Connection getConnection() {
         Connection connection = null;
         try {
-            Context context = new InitialContext();
-            // Obtain our environment naming context
-            Context envCtx = (Context) context.lookup("java:comp/env");
+            Context org.geektimes.web.context = new InitialContext();
+            // Obtain our environment naming org.geektimes.web.context
+            Context envCtx = (Context) org.geektimes.web.context.lookup("java:comp/env");
             // Look up our data source
             DataSource dataSource = (DataSource) envCtx.lookup("jdbc/UserPlatformDB");
             connection = dataSource.getConnection();

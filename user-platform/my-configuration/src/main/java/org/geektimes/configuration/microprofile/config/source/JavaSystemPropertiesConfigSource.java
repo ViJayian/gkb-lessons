@@ -10,9 +10,8 @@ import java.util.*;
  * @author ViJay
  * @date 2021/3/14 19:12
  */
-public class JavaSystemPropertiesConfigSource implements ConfigSource {
+public class JavaSystemPropertiesConfigSource extends AbstractMapConfigSource {
 
-    private final Map<String, String> properties;
     private static final String PROPERTIES_NAME = "Java System Properties";
 
     /**
@@ -20,30 +19,14 @@ public class JavaSystemPropertiesConfigSource implements ConfigSource {
      * 使用Map存储，Properties中getProperties方法底层调用的是synchronized方法
      * {@link Properties#getProperty(java.lang.String)}
      * {@link Hashtable#get(java.lang.Object)}
-     *
      */
     public JavaSystemPropertiesConfigSource() {
-        Map systemProperties = System.getProperties();
-        this.properties = new HashMap<>(systemProperties);
-    }
-
-    /**
-     * Properties Name
-     *
-     * @return
-     */
-    @Override
-    public Set<String> getPropertyNames() {
-        return properties.keySet();
+        super(PROPERTIES_NAME, 400);
     }
 
     @Override
-    public String getValue(String s) {
-        return this.properties.get(s);
+    protected void prepareConfigData(Map map) {
+        map.putAll(System.getProperties());
     }
 
-    @Override
-    public String getName() {
-        return PROPERTIES_NAME;
-    }
 }

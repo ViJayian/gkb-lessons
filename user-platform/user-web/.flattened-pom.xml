@@ -36,8 +36,8 @@
       <artifactId>commons-validator</artifactId>
     </dependency>
     <dependency>
-      <groupId>commons-configuration</groupId>
-      <artifactId>commons-configuration</artifactId>
+      <groupId>commons-org.geektimes.configuration</groupId>
+      <artifactId>commons-org.geektimes.configuration</artifactId>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -70,10 +70,10 @@
             <goals>
               <goal>exec-war-only</goal>
             </goals>
-            <configuration>
+            <org.geektimes.configuration>
               <path>/</path>
               <enableNaming>true</enableNaming>
-            </configuration>
+            </org.geektimes.configuration>
           </execution>
         </executions>
         <dependencies>

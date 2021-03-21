@@ -28,7 +28,7 @@ public abstract class AbstractMapConfigSource implements ConfigSource {
     /**
      * template pattern 提供外部实现，添加数据
      */
-    protected abstract void prepareConfigData(Map map);
+    protected abstract void prepareConfigData(Map map) throws Throwable;
 
     @Override
     public Set<String> getPropertyNames() {
@@ -54,7 +54,7 @@ public abstract class AbstractMapConfigSource implements ConfigSource {
         try {
             prepareConfigData(configurationMaps);
         } catch (Throwable cause) {
-            throw new IllegalStateException("load configuration exception", cause);
+            throw new IllegalStateException("load org.geektimes.configuration exception", cause);
         }
         return Collections.unmodifiableMap(configurationMaps);
     }

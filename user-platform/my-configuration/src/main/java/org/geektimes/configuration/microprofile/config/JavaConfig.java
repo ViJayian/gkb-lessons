@@ -1,6 +1,5 @@
 package org.geektimes.configuration.microprofile.config;
 
-import org.apache.commons.collections.list.UnmodifiableList;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigValue;
 import org.eclipse.microprofile.config.spi.ConfigSource;
@@ -58,8 +57,11 @@ public class JavaConfig implements Config {
         while (iterator.hasNext()) {
             Converter converter = iterator.next();
             // 获取当前Converter的Class类型
-            Type[] genericInterfaces = converter.getClass().getGenericInterfaces();
-            Class converterClass = (Class) ((ParameterizedType) genericInterfaces[0]).getActualTypeArguments()[0];
+            Type genericSuperclass = converter.getClass().getGenericSuperclass();
+            Class converterClass = (Class)(((ParameterizedType) genericSuperclass).getActualTypeArguments()[0]);
+            // 接口类型
+            /*Type[] genericInterfaces = converter.getClass().getGenericInterfaces();
+            Class converterClass = (Class) ((ParameterizedType) genericInterfaces[0]).getActualTypeArguments()[0];*/
             String converterName = converterClass.getSimpleName();
             converterMap.put(converterName, converter);
         }
@@ -106,7 +108,7 @@ public class JavaConfig implements Config {
     }
 
     /**
-     * {@link UnmodifiableList#add(java.lang.Object)}
+     * {@link Collections#unmodifiableList(java.util.List)}
      * - throw new UnsupportedOperationException();
      *
      * @return
