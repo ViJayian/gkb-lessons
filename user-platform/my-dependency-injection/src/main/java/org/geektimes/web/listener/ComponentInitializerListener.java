@@ -1,4 +1,4 @@
-package org.geektimes.projects.user.web.listener;
+package org.geektimes.web.listener;
 
 import org.geektimes.web.context.ComponentContext;
 
@@ -17,7 +17,7 @@ public class ComponentInitializerListener implements ServletContextListener {
     private ServletContext servletContext;
 
     /**
-     * 容器启动，触发监听，调用 {@link org.geektimes.web.context.ComponentContext} 初始化
+     * 容器启动，触发监听，调用 {@link ComponentContext} 初始化
      *
      * @param servletContextEvent
      */

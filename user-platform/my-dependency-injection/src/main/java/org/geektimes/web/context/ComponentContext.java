@@ -50,6 +50,7 @@ public class ComponentContext {
         servletContext.setAttribute(COMPONENT_NAME, this);
         // 获取当前ServletContext(webapp) ClassLoader
         this.classLoader = servletContext.getClassLoader();
+//        this.classLoader = Thread.currentThread().getContextClassLoader();
         // 初始化JNDI环境实例
         initJDNIEnvContext();
         // 加载 org.geektimes.web.context.xml中配置的对象到内存中
@@ -177,7 +178,7 @@ public class ComponentContext {
         List<T> list = new ArrayList<>();
         Collection<Object> values = this.componentsMap.values();
         for (Object value : values) {
-            if (value.getClass() == classt) {
+            if (classt.isAssignableFrom(value.getClass())) {
                 T t = (T) value;
                 list.add(t);
             }

@@ -543,14 +543,24 @@ public interface ConfigValue{
 3. 第三周
 
 - 整合 https://jolokia.org/
-
 - [x] 实现一个自定义 JMX MBean，通过 Jolokia 做Servlet 代理
-
 - 继续完成 Microprofile config API 中的实现扩展
-
 - [x] org.eclipse.microprofile.config.spi.ConfigSource实现，包括 OS 环境变量，以及本地配置文件
 - [x] 扩展 org.eclipse.microprofile.config.spi.Converter实现，提供 String 类型到简单类型
 - [x] 通过 org.eclipse.microprofile.config.Config 读取当前应用名称,应用名称 property name = "application.name"
+
+4. 第四周
+
+- 完善 my dependency-injection 模块
+
+- [x] 脱离 web.xml 配置实现 ComponentContext 自动初始化
+- [x] 使用独立模块并且能够在 user-web 中运行成功
+
+- 完善 my-configuration 模块
+
+- [x] Config 对象如何能被 my-web-mvc 使用
+  - [x] 可能在 ServletContext 获取
+  - [ ] 如何通过 ThreadLocal 获取
 
 
 

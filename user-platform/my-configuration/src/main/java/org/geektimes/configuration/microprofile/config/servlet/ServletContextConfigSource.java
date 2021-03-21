@@ -21,7 +21,7 @@ public class ServletContextConfigSource extends AbstractMapConfigSource {
     }
 
     protected ServletContextConfigSource() {
-        super("servlet init paramter", 500);
+        super("servlet init paramter", 1000);
     }
 
     @Override

@@ -1,6 +1,9 @@
 package org.geektimes.web.mvc;
 
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.microprofile.config.Config;
+import org.geektimes.configuration.microprofile.config.servlet.ServletContextConfigInitializer;
+import org.geektimes.utils.ThreadConfigHolder;
 import org.geektimes.web.context.ComponentContext;
 import org.geektimes.web.mvc.controller.Controller;
 import org.geektimes.web.mvc.controller.PageController;
@@ -21,6 +24,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import static java.util.Arrays.asList;
+import static java.util.Arrays.copyOf;
 import static org.apache.commons.lang.StringUtils.substringAfter;
 
 public class FrontControllerServlet extends HttpServlet {
@@ -45,6 +49,26 @@ public class FrontControllerServlet extends HttpServlet {
         initHandleMethods();
         // 使用容器中的controller替换
         replaceControllerByContainerController();
+
+        testMicroProfileConfig(servletConfig);
+        testThreadLocalVars();
+    }
+
+    /**
+     * ThreadLocal获取初始化设置的变量
+     * {@link ServletContextConfigInitializer#addThreadLocalVariables(org.eclipse.microprofile.config.Config)}
+     */
+    private void testThreadLocalVars() {
+        Config config = ThreadConfigHolder.getConfig();
+        String value = config.getValue("application.name", String.class);
+        System.out.printf("==== Thread Local 获取变量 application.name = [%s]　===== \n", value);
+    }
+
+    private void testMicroProfileConfig(ServletConfig servletConfig) {
+        ServletContext servletContext = servletConfig.getServletContext();
+        Config config = (Config) servletContext.getAttribute("config");
+        String value = config.getValue("application.name", String.class);
+        System.out.printf("==== ServletContext 获取变量 application.name = [%s]　===== \n", value);
     }
 
     /**
