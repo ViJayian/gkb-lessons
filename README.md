@@ -560,7 +560,7 @@ public interface ConfigValue{
 
 - [x] Config 对象如何能被 my-web-mvc 使用
   - [x] 可能在 ServletContext 获取
-  - [ ] 如何通过 ThreadLocal 获取
+  - [x] 如何通过 ThreadLocal 获取
 
 
 
