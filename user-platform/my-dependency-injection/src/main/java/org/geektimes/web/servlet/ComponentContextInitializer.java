@@ -1,5 +1,6 @@
 package org.geektimes.web.servlet;
 
+import org.geektimes.web.filter.MyFilter;
 import org.geektimes.web.listener.ComponentInitializerListener;
 
 import javax.servlet.ServletContainerInitializer;

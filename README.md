@@ -42,6 +42,145 @@ ij> connect 'jdbc:derby:/db/user-platform;';
 
 # 2.Servlet
 
+## 1.Servlet是什么
+
+Servlet是基于Java的Web组件，容器托管的，用于生成动态内容。Servlet最终被编译成与平台无关的字节码文件，可以被基于java的web server加载
+
+## 2.Servlet容器是什么
+
+Servlet容器是web server或者application server的一部分，提供基于请求/响应发送模型的网络服务，解码基于MIME的请求，并且格式化基于MIME的响应，
+
+Servlet容器也包含了Servlet的生命周期。
+
+## 3.事件序列
+
+1. web浏览器发送请求到web服务器
+2. web服务器接受请求并且交给servlet容器
+3. servlet根据配置选择相应的servlet进行处理
+4. 产生响应内容返回给客户端
+
+## 4.Servlet接口
+
+### 1.Servlet
+
+Servlet是Java Servlet Api的核心抽象，所有Servlet类都必须直接或者间接实现Servlet接口，通常继承HttpServlet实现自己的Servlet即可。
+
+```java
+javax.servlet.Servlet
+public interface Servlet {
+    
+}
+
+javax.servlet.GenericServlet
+public abstract class GenericServlet 
+    implements Servlet, ServletConfig, java.io.Serializable
+{}
+
+javax.servlet.http.HttpServlet
+public abstract class HttpServlet extends GenericServlet
+{}   
+```
+
+### 2.请求处理方法
+
+javax.servlet.Servlet#service
+
+当请求到达的时候，由该方法路由到一个Servlet的实例
+
+### 3.Servlet默认线程不安全
+
+Web 应用程序的并发请求处理通常需要 Web 开发人员去设计适合多线程执行的 Servlet，从而保证 service
+
+方法能在一个特定时间点处理多线程并发执行。（注：即 Servlet 默认是线程不安全的，需要开发人员处理
+
+多线程问题），（通常 Web 容器对于并发请求将使用同一个 servlet 处理，并且在不同的线程中并发执行 service 方法。）
+
+### 4.解决方式：
+
+总结1：servlet是线程不安全的，而造成这种原因主要是以为**实例变量不正确的使用**。
+总结2 ：尽量不使用synchronized来解决Servlet线程安全问题
+
+### 5.SingleThreadModel
+
+SingleThreadModel 接口的作用是保证一个特定servlet 实例的service 方法在一个时刻仅能被一个线程执行，
+
+一定要注意，此保证仅适用于每一个 servlet 实例，因此容器可以选择池化这些对象。有些对象可以在同一
+
+时刻被多个 servlet 实例访问
+
+## 5.Servlet生命周期
+
+### 1.加载和实例化
+
+Servlet容器负责加载和实例化Servlet
+
+### 2.初始化
+
+Servlet被实例化完毕，容器接下来必须在处理客户端请求之前初始化该Servlet实例。通过Servlet实例的init方法初始化，提供一个唯一参数ServletConfig
+
+```java
+javax.servlet.Servlet#init
+    public void init(ServletConfig config) throws ServletException;
+```
+
+ServletConfig可以获取Web应用配置的参数，也可以访问ServletContext对象，ServletContext描述了Servlet运行环境
+
+### 3.请求处理
+
+Servlet完成初始化后，可以处理请求了，请求由ServletRequest对象表示，响应由ServletResponse对象表示，http请求一般对应HttpServletRequest和HttpServletResponse
+
+```java
+javax.servlet.ServletRequest
+    javax.servlet.http.HttpServletRequest
+    
+javax.servlet.ServletResponse
+    javax.servlet.http.HttpServletResponse
+```
+
+### 4.终止服务
+
+移除Servlet时，调用Servlet的destory方法
+
+## 6.Request对象的生命周期
+
+每个request对象只在servlet的service方法的作用域内，或过滤器doFilter方法的作用域有效，除非是启动了异步处理startAsync
+
+## 7.ServletContext
+
+Servlet上下文
+
+### 1.配置方法
+
+3.0开始添加到ServletContext，启用编程的方式定义Servlet，Filter和他们映射的url，这些方法只能从**javax.servlet.ServletContextListener#contextInitialized**方法或者**javax.servlet.ServletContainerInitializer#onStartup**初始化过程进行调用
+
+### 2.编程式配置Servlet，Filter，Listener
+
+### 3.上下文属性
+
+xxxAttribute
+
+### 4.资源 
+
+javax.servlet.ServletContext#getResource
+
+javax.servlet.ServletContext#getResourceAsStream
+
+需要一个以 '/'开头的字符串为参数
+
+## 8.Response
+
+生命周期：
+
+在servlet的service方法的范围内或在filter的doFilter方法范围内都是有效的
+
+## 9.Filter过滤器
+
+
+
+
+
+## 课程笔记
+
 CGI-基于进程，PHP，Apache Httpd
 
 Servlet-基于线程（一个线程处理一个请求）

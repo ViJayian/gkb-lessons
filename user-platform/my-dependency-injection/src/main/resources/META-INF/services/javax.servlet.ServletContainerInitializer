@@ -1,1 +1,2 @@
 org.geektimes.web.servlet.ComponentContextInitializer
+org.geektimes.web.register.WebConfiguartion
